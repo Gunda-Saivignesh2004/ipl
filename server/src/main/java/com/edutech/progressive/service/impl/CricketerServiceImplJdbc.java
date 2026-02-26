@@ -38,7 +38,11 @@ public class CricketerServiceImplJdbc implements CricketerService {
                 .sorted(Comparator.comparingInt(Cricketer::getExperience))
                 .collect(Collectors.toList());
     }
- 
+ @Override
+public void emptyArrayList() {
+    // JDBC-backed service has no in-memory store to clear.
+    // This is intentionally a no-op to satisfy the interface.
+}
     @Override
     public void updateCricketer(Cricketer cricketer) throws SQLException {
         cricketerDAO.updateCricketer(cricketer);

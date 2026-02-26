@@ -50,4 +50,9 @@ public class TeamServiceImplJdbc implements TeamService  {
     public void deleteTeam(int teamId) throws SQLException {
         teamDAO.deleteTeam(teamId);
     }
+     @Override
+public void emptyArrayList() {
+    // JDBC-backed service has no in-memory store to clear.
+    // This is intentionally a no-op to satisfy the interface.
+}
 }
