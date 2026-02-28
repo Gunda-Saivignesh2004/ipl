@@ -1,53 +1,49 @@
 package com.edutech.progressive.service.impl;
-import com.edutech.progressive.entity.Match;
-import com.edutech.progressive.repository.MatchRepository;
-import com.edutech.progressive.service.MatchService;
-import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
-@Service
+import com.edutech.progressive.entity.Match;
+
+import com.edutech.progressive.service.MatchService;
+
 public class MatchServiceImplJpa implements MatchService {
 
-    private MatchRepository matchRepository;
+    @Override
 
-    public MatchServiceImplJpa() {}
+    public List<Match> getAllMatches() {
 
-    public MatchServiceImplJpa(MatchRepository repo) {
-        this.matchRepository = repo;
-    }
+      return null;
 
-    public void setMatchRepository(MatchRepository repo) {
-        this.matchRepository = repo;
     }
 
     @Override
-    public List<Match> getAllMatches() throws SQLException {
-        // Day 6: placeholder
-        return Collections.emptyList();
+
+    public Match getMatchById(int matchId) {
+
+      return null;
+
     }
 
     @Override
-    public Match getMatchById(int matchId) throws SQLException {
-        // Day 6: placeholder
-        return null;
+
+    public Integer addMatch(Match match) {
+
+      return -1;
+
     }
 
     @Override
-    public Integer addMatch(Match match) throws SQLException {
-        // Day 6: placeholder
-        return -1;
+
+    public void updateMatch(Match match) {
+
     }
 
     @Override
-    public void updateMatch(Match match) throws SQLException {
-        // Day 6: placeholder
+
+    public void deleteMatch(int matchId) {
+
     }
 
-    @Override
-    public void deleteMatch(int matchId) throws SQLException {
-        // Day 6: placeholder
-    }
 }
+
+ 

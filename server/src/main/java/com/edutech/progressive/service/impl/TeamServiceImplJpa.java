@@ -1,72 +1,92 @@
 package com.edutech.progressive.service.impl;
-
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.edutech.progressive.entity.Team;
 import com.edutech.progressive.repository.TeamRepository;
 import com.edutech.progressive.service.TeamService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
-public class TeamServiceImplJpa implements TeamService {
-
+public class TeamServiceImplJpa implements TeamService { 
     private TeamRepository teamRepository;
-
-    // Required by some test harnesses
-    public TeamServiceImplJpa() {}
-
-    @Autowired
+     @Autowired
     public TeamServiceImplJpa(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
     }
-
-    // Setter in case harness injects manually
-    @Autowired
-    public void setTeamRepository(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
-    }
-
-    @Override
     public List<Team> getAllTeams() throws SQLException {
         return teamRepository.findAll();
     }
-
-    @Override
     public int addTeam(Team team) throws SQLException {
-        return teamRepository.save(team).getTeamId();
+        Team saved = teamRepository.save(team);
+        return saved.getTeamId();
     }
-
-    @Override
     public List<Team> getAllTeamsSortedByName() throws SQLException {
-        return teamRepository.findAll()
-                .stream()
-                .sorted(Comparator.comparing(Team::getTeamName, String::compareTo))
-                .collect(Collectors.toList());
+        List<Team> teams = teamRepository.findAll();
+        Collections.sort(teams); 
+        return teams;
     }
-
-    @Override
     public Team getTeamById(int teamId) throws SQLException {
         return teamRepository.findByTeamId(teamId);
     }
-
-    @Override
     public void updateTeam(Team team) throws SQLException {
         teamRepository.save(team);
     }
-
-    @Override
     public void deleteTeam(int teamId) throws SQLException {
         teamRepository.deleteById(teamId);
     }
-
-    @Override
-    public void emptyArrayList() {
-        // JPA-backed service has no in-memory store to clear.
-        // This is intentionally a no-op to satisfy the interface.
-    }
 }
+ 
+ 
+ 
+// package com.edutech.progressive.service.impl;
+// import java.sql.SQLException;
+// import java.util.ArrayList;
+// import java.util.Collections;
+// import java.util.List;
+// import org.springframework.stereotype.Service;
+// import com.edutech.progressive.entity.Team;
+// @Service
+// public class TeamServiceImplJpa  {
+//     List<Team> t=new ArrayList<>();
+//     public List<Team> getAllTeams()throws SQLException
+//     {
+//         return t;
+//     }
+//     public int addTeam(Team team)throws SQLException
+//     {
+//          t.add(team);
+//          return t.size();
+//     }
+//     List<Team> getAllTeamsSortedByName()throws SQLException
+//     {
+//         Collections.sort(t);
+//         return t;
+//     }
+//     public Team getTeamById(int teamId)throws SQLException
+//     {for (Team team : t) {
+//         if(team.getTeamId()==teamId)
+//         {
+//             return team;
+//         }
+//     }return null;
+//     }
+//     public void updateTeam(Team team)throws SQLException
+//     {
+//         for (Team team1 : t) {
+//             if(team1.getTeamId()==team.getTeamId())
+//             {
+//                 team1.setTeamName(team.getTeamName());
+//                 team1.setLocation(team.getLocation());
+//                 team1.setOwnerName(team.getOwnerName());
+//                 team1.setEstablishmentYear(team.getEstablishmentYear());
+//             }   
+//         }
+//     }
+//   public void deleteTeam(int teamId)
+//   {
+//   t.removeIf(team -> team.getTeamId() == teamId);
+// }
+//   }
